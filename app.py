@@ -5,7 +5,7 @@ from discord.ext import commands
 from datetime import date
 
 cached_date = str(date.today().isoformat()) + ":\n"
-__VERS__ = "v0.0.2 (ALPHA)"
+__VERS__ = "v0.0.3 (ALPHA)"
 confirmation = ["Gotchu", "Np", "Got it", "Heard", "Mhm", "Ok", "Yup", "That's what's up", "Nice"]
 bot = commands.Bot(command_prefix='!')
 
@@ -17,9 +17,9 @@ def initialize_secret():
 
 def rw_log(who):
 	try:
+		f = open("logs/log-{}.txt".format(who), "r+")
+	except IOError or FileNotFoundError:
 		f = open("logs/log-{}.txt".format(who), "w+")
-	except IOError:
-		return 1
 	return f 
 
 @bot.event
@@ -34,29 +34,31 @@ async def fillout(ctx, *args):
 		return
 	#Arg parse
 	if len(args) < 3:
-		await ctx.send("Not enough args" + help)
+		await ctx.send("Not enough args")
 		return
 	try:
-		assert type(args[0]) == int and type(args[1] == int) and type(args[2]) == str
-	except AssertionError:
-		ctx.send("Wrong format of args" + help)
+		int(args[0])
+		int(args[1])
+	except ValueError:
+		await ctx.send("Wrong format in args")
 		return
 	if cached_date not in log.read():
 		log.write(cached_date)
-	for i in range(0, len(args)-1):
+	log.write("\t" + "\n\nMATCH:\n")
+	for i in range(0, len(args)):
 		#TODO: Make a class or enum obj and add type of arg to elim nested conditionals
-		#TODO: Make \t * 5 standard in a wrapper
+		#TODO: Make \t standard in a wrapper
 		if i == 0:
-			log.write(("\t" * 5) + "KILLS : {}\n".format(args[i]))
+			log.write("\t" + "KILLS : {}\n".format(args[i]))
 		elif i == 1:
-			log.write(("\t" * 5) + "DEATHS : {}\n".format(args[i]))
+			log.write("\t" + "DEATHS : {}\n".format(args[i]))
 		elif i == 2:
-			log.write(("\t" * 5) + "W/L : {}\n".format(args[i]))
+			log.write("\t" + "W/L : {}\n".format(args[i]))
 		elif i == 3:
-			log.write(("\t" * 5) + "OPERATOR : {}\n".format(args[i]))
+			log.write("\t"  + "OPERATOR : {}\n".format(args[i]))
 		elif i == 4:
-			log.write(("\t" * 5) + "OTHER NOTES : {}\n\n".format(args[i]))
-		await ctx.send(random.choice(confirmation))
+			log.write("\t"  + "OTHER NOTES : {}\n".format(args[i]))
+	await ctx.send(random.choice(confirmation))
 
 @bot.command(name="retrieve", help="Prints your log")
 async def retrieve(ctx):
