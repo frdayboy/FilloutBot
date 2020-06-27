@@ -17,7 +17,7 @@ def initialize_secret():
 
 def rw_log(who):
 	try:
-		open("logs/log-{}.txt".format(who), "w+") as f
+		f = open("logs/log-{}.txt".format(who), "w+")
 	except IOError:
 		return 1
 	return f 
