@@ -1,6 +1,6 @@
 # Daily Fillout Bot written by Tarek Joumaa (@frdayboy)
 
-import discord, json, random
+import discord, json, random, sys
 from discord.ext import commands
 from datetime import date
 
@@ -70,6 +70,13 @@ async def retrieve(ctx):
 		await ctx.send("No log is available for you")
 		return
 	await ctx.send(content)
+
+@bot.command(name='kill', help='Shuts bot down')
+async def kill(ctx):
+	if ctx.author == "Tarooa#1981":
+		sys.exit(0)
+	else:
+		await ctx.send("You are not authorized to use this command.")
 
 if __name__ == '__main__':
 	TOKEN = initialize_secret()
