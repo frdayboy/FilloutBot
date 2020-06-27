@@ -64,7 +64,7 @@ async def retrieve(ctx):
 		with open("logs/log-{}.txt".format(str(ctx.author)), "r") as f:
 			content = f.read()
 		f.close()
-	except IOError:
+	except IOError or FileNotFoundError:
 		await ctx.send("No log is availale for you")
 		return
 	await ctx.send(content)
