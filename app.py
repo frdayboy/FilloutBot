@@ -65,7 +65,7 @@ async def retrieve(ctx):
 			content = f.read()
 		f.close()
 	except IOError or FileNotFoundError:
-		await ctx.send("No log is availale for you")
+		await ctx.send("No log is available for you")
 		return
 	await ctx.send(content)
 
