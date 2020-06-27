@@ -13,6 +13,8 @@ def initialize_secret():
 	with open("creds.json", "r") as f:
 		content = f.read()
 	f.close()
+	KILLUSER = str(json.loads(content)['KILLUSER'])
+	global KILLUSER
 	return json.loads(content)['TOKEN']
 
 def rw_log(who):
@@ -73,13 +75,15 @@ async def retrieve(ctx):
 
 @bot.command(name='kill', help='Shuts bot down')
 async def kill(ctx):
-	if ctx.author == "Tarooa#1981":
+	if str(ctx.author) == KILLUSER:
 		sys.exit(0)
 	else:
 		await ctx.send("You are not authorized to use this command.")
 
 if __name__ == '__main__':
+	#Bad naming, ik
 	TOKEN = initialize_secret()
+	
 	#Boot bot
 	bot.run(TOKEN)
 
