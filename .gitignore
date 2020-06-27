@@ -1,3 +1,5 @@
 #Python cache
 *.pyc
 __pycache__/
+#Secrets
+creds.json
