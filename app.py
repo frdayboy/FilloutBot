@@ -1,11 +1,12 @@
 # Daily Fillout Bot written by Tarek Joumaa (@frdayboy)
 
-import discord, json, random, sys
+import discord, json, random, sys, extend
 from discord.ext import commands
 from datetime import date
 
 cached_date = str(date.today().isoformat()) + ":\n"
-__VERS__ = "v0.0.3 (ALPHA)"
+KILLUSER = extend.KILLUSER
+__VERS__ = "v0.0.4 (BETA)"
 confirmation = ["Gotchu", "Np", "Got it", "Heard", "Mhm", "Ok", "Yup", "That's what's up", "Nice"]
 bot = commands.Bot(command_prefix='!')
 
@@ -13,8 +14,6 @@ def initialize_secret():
 	with open("creds.json", "r") as f:
 		content = f.read()
 	f.close()
-	KILLUSER = str(json.loads(content)['KILLUSER'])
-	global KILLUSER
 	return json.loads(content)['TOKEN']
 
 def rw_log(who):
@@ -83,7 +82,6 @@ async def kill(ctx):
 if __name__ == '__main__':
 	#Bad naming, ik
 	TOKEN = initialize_secret()
-	
 	#Boot bot
 	bot.run(TOKEN)
 
