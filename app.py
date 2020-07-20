@@ -10,10 +10,14 @@ confirmation = ["Gotchu", "Np", "Got it", "Heard", "Mhm", "Ok", "Yup", "That's w
 bot = commands.Bot(command_prefix='!')
 
 def initialize_secret():
-	with open("creds.json", "r") as f:
-		content = f.read()
-	f.close()
-	return json.loads(content)['TOKEN']
+	try:
+		with open("creds.json", "r") as f:
+			content = f.read()
+		f.close()
+		return json.loads(content)['TOKEN']
+	except FileNotFoundError:
+		print("[FilloutBot] creds.json file not found")
+		sys.exit(1)
 
 def rw_log(who):
 	try:
