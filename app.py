@@ -4,7 +4,6 @@ import discord, json, random, sys, extend
 from discord.ext import commands
 from datetime import date
 
-cached_date = str(date.today().isoformat()) + ":\n"
 KILLUSER = extend.KILLUSER
 __VERS__ = "v0.0.4 (BETA)"
 confirmation = ["Gotchu", "Np", "Got it", "Heard", "Mhm", "Ok", "Yup", "That's what's up", "Nice"]
@@ -21,14 +20,15 @@ def rw_log(who):
 		f = open("logs/log-{}.txt".format(who), "r+")
 	except IOError or FileNotFoundError:
 		f = open("logs/log-{}.txt".format(who), "w+")
-	return f 
+	return f
 
 @bot.event
 async def on_ready():
 	print("[FilloutBot] Booted {}".format(__VERS__))
 
-@bot.command(name='fill', help="(kills) (deaths) (w/l) (optional: operator) (optional: assists) (optional: other notes)")
+@bot.command(name='fill', help="(kills) (deaths) (w/l) (optional: operator) (optional: other notes)")
 async def fillout(ctx, *args):
+	cached_date = str(date.today().isoformat()) + ":"
 	log = rw_log(str(ctx.author))
 	if log == 1:
 		await ctx.send("Error occured while opening file")
@@ -43,8 +43,8 @@ async def fillout(ctx, *args):
 	except ValueError:
 		await ctx.send("Wrong format in args")
 		return
-	if cached_date not in log.read():
-		log.write(cached_date)
+	if cached_date not in str(log.read()):
+		log.write(cached_date + "\n")
 	log.write("\t" + "\n\nMATCH:\n")
 	for i in range(0, len(args)):
 		#TODO: Make a class or enum obj and add type of arg to elim nested conditionals
@@ -84,4 +84,3 @@ if __name__ == '__main__':
 	TOKEN = initialize_secret()
 	#Boot bot
 	bot.run(TOKEN)
-
