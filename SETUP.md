@@ -19,6 +19,8 @@ Once you have your token, open 'creds.json' and copy and paste the token into th
    "TOKEN" : "abcdefghijklmnop
  }
 
+Last thing: If you'd like for a specific user to be able to kill the bot with '!kill', go to the 'extend.py' file and paste the name and number between the quotes!
+
  Now, you're ready to run the script!
  If you're having trouble with running it, Google's your best friend!
 
