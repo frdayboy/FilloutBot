@@ -21,3 +21,5 @@ Once you have your token, open 'creds.json' and copy and paste the token into th
 
  Now, you're ready to run the script!
  If you're having trouble with running it, Google's your best friend!
+
+ If you're still having trouble, contact me on Twitter: @frdayboy or Reddit: u/AKidWithAMeme
