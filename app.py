@@ -1,8 +1,13 @@
 # Daily Fillout Bot written by Tarek Joumaa (@frdayboy)
-
-import discord, json, random, sys, extend
-from discord.ext import commands
+import json, random, sys, extend
 from datetime import date
+
+try:
+	from discord.ext import commands
+	import discord
+except ImportError:
+	print("[FilloutBot] A needed module is missing, install it by running 'pip3 install discord.py'")
+	sys.exit(1)
 
 KILLUSER = extend.KILLUSER
 __VERS__ = "v0.0.4 (BETA)"
